@@ -43,9 +43,9 @@ namespace Camera2.Middlewares {
 	class VMCAvatar : CamMiddleware, IMHandler {
 		static OscClient sender;
 
-		float prevFov;
-		Vector3 prevPos;
-		Quaternion prevRot;
+		static float prevFov;
+		static Vector3 prevPos;
+		static Quaternion prevRot;
 
 		new public void Post() {
 			if(cam.settings.VMCProtocol.mode == Configuration.VMCMode.Disabled)
