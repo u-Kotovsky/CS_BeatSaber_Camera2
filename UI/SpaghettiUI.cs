@@ -289,6 +289,10 @@ namespace Camera2.UI {
 		internal bool misc_MovementScript_enableInMenu {
 			get => cam.settings.MovementScript.enableInMenu; set { cam.settings.MovementScript.enableInMenu = value; }
 		}
+
+		internal bool misc_isSpoutOutput {
+			get => cam.settings.isSpoutOutput; set { cam.settings.isSpoutOutput = value; }
+		}
 		#endregion
 
 		[UIAction("SetRenderDistanceNear")] void SetRenderDistanceNear() => cam.settings.farZ = 6f;

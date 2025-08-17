@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 991006801
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 117a8a4ae5f82b70312ec42d46b00e33
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 55d48f4ad9c3b13330b9eb5ee5686477
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/spout/Shaders/Blit.shader
+Dependencies: []

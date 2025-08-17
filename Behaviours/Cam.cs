@@ -6,6 +6,7 @@ using Camera2.Interfaces;
 using Camera2.Middlewares;
 using Camera2.UI;
 using Camera2.Utils;
+using Klak.Spout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace Camera2.Behaviours {
 
 		internal Transformer transformer;
 		internal TransformChain transformchain;
+
+		internal SpoutSender spoutSender;
 
 		public void Awake() {
 			DontDestroyOnLoad(gameObject);

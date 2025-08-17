@@ -159,6 +159,7 @@
 					/>
 				</horizontal>
 				<slider-setting text='FPS Limit (0 = off)' min='0' max='240' increment='1' integer-only='true' value='fpsLimit' bind-value='true' apply-on-change='true'/>
+				<checkbox text='Use Spout output' value='misc_isSpoutOutput' bind-value='true' apply-on-change='true' hover-hint='Enable or disable spout output.'/>
 			</modifier-container>
 		</vertical>
 	</tab>

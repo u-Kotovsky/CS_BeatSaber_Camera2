@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Camera2": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "BeatSaberDir": "C:\\Users\\Kotovsky\\BSManager\\BSInstances\\1.40.7\\"
+      }
+    }
+  }
+}

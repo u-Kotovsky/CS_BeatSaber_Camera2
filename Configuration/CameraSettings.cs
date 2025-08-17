@@ -1,15 +1,18 @@
-﻿using Camera2.Behaviours;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using Camera2.Behaviours;
 using Camera2.HarmonyPatches;
 using Camera2.Interfaces;
 using Camera2.Managers;
 using Camera2.SDK;
 using Camera2.Utils;
+using IPA.Config.Stores.Converters;
+using Klak.Spout;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
+using static SliderController.Pool;
 
 namespace Camera2.Configuration {
 	public enum CameraType {
@@ -380,6 +383,57 @@ namespace Camera2.Configuration {
 		internal bool isScreenLocked {
 			get => viewRect.locked;
 			set => viewRect.locked = value;
+		}
+
+		private bool _isSpoutOutput = false;
+		public bool isSpoutOutput {
+			get => _isSpoutOutput;
+			set {
+				Plugin.Log.Info("Spout capture is changing from " + (_isSpoutOutput ? "enabled" : "disabled") + " to " + (value ? "enabled" : "disabled"));
+				// TODO: maybe render texture alias to be able to manually set texture resolution
+				if(value) {
+					// Set to ON
+					if (cam.spoutSender == null) {
+						Plugin.Log.Warn("Failed to get existing spout sender, creating new one!!!");
+						//var spoutOut = new GameObject("SpoutIsHere");
+						//spoutOut.transform.parent = transform;
+						//spoutOut.SetActive(false);
+						cam.spoutSender = cam.gameObject.AddComponent<SpoutSender>();
+						//cam.spoutSender.enabled = false;
+						cam.spoutSender.spoutName = "BeatSaber Sender";
+						cam.spoutSender.captureMethod = Klak.Spout.CaptureMethod.Texture;
+						cam.spoutSender.sourceTexture = cam.renderTexture;
+						//cam.spoutSender.enabled = true;
+						//spoutOut.SetActive(true);
+						Plugin.Log.Warn($"Is render texture null?: {cam.renderTexture == null}");
+						Plugin.Log.Warn($"Is spout enabled?: {cam.spoutSender.isActiveAndEnabled} {cam.spoutSender.enabled}");
+						//Plugin.Log.Warn($"Is converter enabled?: {Converter.activeInHierarchy}");
+					} else {
+						Plugin.Log.Info("Spout capture is on. null?: " + (cam.spoutSender == null));
+						cam.spoutSender.enabled = true;
+					}
+					Plugin.Log.Warn($"1Is render texture null?: {cam.renderTexture == null}");
+					Plugin.Log.Warn($"1Is spout enabled?: {cam.spoutSender.isActiveAndEnabled} {cam.spoutSender.enabled}");
+					cam.spoutSender.spoutName = "BeatSaber Sender";
+					cam.spoutSender.captureMethod = Klak.Spout.CaptureMethod.Texture;
+					cam.spoutSender.sourceTexture = cam.renderTexture;
+					Plugin.Log.Warn($"2Is render texture null?: {cam.renderTexture == null}");
+					Plugin.Log.Warn($"2Is spout enabled?: {cam.spoutSender.isActiveAndEnabled} {cam.spoutSender.enabled}");
+				} else {
+					// Set to OFF
+					cam.spoutSender.enabled = false;
+					if(cam.spoutSender == null) {
+						// don't do anything, it's already off
+						Plugin.Log.Warn($"Spout was already off and you're trying to turn it off.");
+						Plugin.Log.Warn($"Is spout enabled?: {cam.spoutSender.isActiveAndEnabled} {cam.spoutSender.enabled}");
+					} else {
+						Plugin.Log.Info("Spout capture is off. null?: " + (cam.spoutSender == null));
+						cam.spoutSender.enabled = false;
+					}
+				}
+
+				_isSpoutOutput = value;
+			}
 		}
 
 		public Settings_Multiplayer Multiplayer { get; private set; }
